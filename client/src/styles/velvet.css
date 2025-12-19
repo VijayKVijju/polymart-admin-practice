@@ -1,0 +1,32 @@
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f7f6;
+}
+
+.velvet-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  padding: 24px;
+}
+
+.sidebar {
+  background: #f4f4f4;
+}
+
+.sidebar-item {
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.sidebar-item.active {
+  background: #e5e5e5;
+  font-weight: 600;
+}
+
+.sidebar-item:hover {
+  background: #eaeaea;
+}

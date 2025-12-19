@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f9fb;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Layout */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar-title {
+  color: #1a73e8;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar-menu button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background: #f3f3f3;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-menu .active {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+/* Main */
+.dashboard-main {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Topbar */
+.topbar h1 {
+  text-align: center;
+  color: #1a73e8;
+  margin-bottom: 30px;
+}
+
+/* Dashboard */
+.welcome-text {
+  color: #1a73e8;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.stats-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.stat-title {
+  color: #555;
+}
+
+.muted-text {
+  color: gray;
+}
+
+.green-text {
+  color: green;
+}
+
+/* Logout */
+.logout-btn {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
 }

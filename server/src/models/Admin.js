@@ -1,24 +1,48 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const adminSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const adminSchema = new mongoose.Schema(
+  {
+    adminId: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false,
+    },
+    refreshToken: {
+      type: String,
+      default: null,
+      select: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
+  { timestamps: true }
+);
+
+// 🔐 Hash password
+adminSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Optional: Hash password before saving (if you create new admin)
-adminSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// 🔐 Compare password
+adminSchema.methods.comparePassword = function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
+};
 
-module.exports = mongoose.model("Admin", adminSchema);
+// 🎫 Access Token
+adminSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    { id: this._id, adminId: this.adminId, role: "admin" },
+    process.env.JWT_SECRET,
+    { expiresIn: "15m" }
+  );
+};
+
+export default mongoose.model("Admin", adminSchema);
