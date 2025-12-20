@@ -23,9 +23,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { isAdminLoggedIn } from "../utils/auth";
 
 export default function AdminRoutes() {
-  if (!isAdminLoggedIn()) {
-    return <Navigate to="/admin/login" replace />;
-  }
-
-  return <Outlet />;
+  return isAdminLoggedIn() ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/admin/login" replace />
+  );
 }

@@ -1,13 +1,15 @@
 import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-[#fafafa]">
       <Sidebar />
 
-      <main className="ml-64 w-full min-h-screen bg-gray-50 p-8">
-        {children}
-      </main>
+      <div className="flex-1 flex flex-col">
+        <Topbar />
+        <main className="p-8">{children}</main>
+      </div>
     </div>
   );
 }

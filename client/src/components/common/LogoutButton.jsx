@@ -4,9 +4,9 @@ export default function LogoutButton() {
   return (
     <button
       onClick={logoutAdmin}
-      className="text-red-600 font-semibold"
+      className="flex items-center gap-2 text-red-600 font-semibold hover:text-red-700"
     >
-      Logout
+      Log out →
     </button>
   );
 }

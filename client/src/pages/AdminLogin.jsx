@@ -246,5 +246,4 @@ export default function AdminLogin() {
       </div>
     </div>
   );
-}
-localStorage
+}cl

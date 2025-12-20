@@ -1,9 +1,9 @@
-const Topbar = () => {
+export default function Topbar() {
   return (
-    <header className="topbar">
-      <h1>Dashboard</h1>
+    <header className="h-16 bg-white shadow flex items-center justify-center">
+      <h1 className="text-blue-600 font-semibold text-lg">
+        Dashboard
+      </h1>
     </header>
   );
-};
-
-export default Topbar;
+}
