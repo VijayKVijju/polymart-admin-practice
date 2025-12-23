@@ -1,9 +1,36 @@
+
+
+//===================proper workimg
+/*
 import { Router } from "express";
 import { loginAdmin, registerAdmin } from "../controllers/admin.controller.js";
 
 const router = Router();
 
 router.post("/register", registerAdmin);
+router.post("/login", loginAdmin);
+
+export default router;
+*/
+
+//------------------------------------updatiung
+import express from "express";
+import { loginAdmin, registerAdmin } from "../controllers/admin.controller.js";
+
+const router = express.Router();
+
+/**
+ * @route   POST /api/admin/register
+ * @desc    Register new admin
+ * @access  Public (restrict later)
+ */
+router.post("/register", registerAdmin);
+
+/**
+ * @route   POST /api/admin/login
+ * @desc    Admin login
+ * @access  Public
+ */
 router.post("/login", loginAdmin);
 
 export default router;

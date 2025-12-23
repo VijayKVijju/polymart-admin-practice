@@ -117,12 +117,16 @@ export default function AdminLogin() {
   );
 }
 */
-//==================
+//==================adimn poymart server connected
+
+/*
+
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-/* ✅ STYLES (UNCHANGED) */
+
 const styles = {
   page: {
     height: "100vh",
@@ -201,7 +205,7 @@ export default function AdminLogin() {
         { adminId, password }
       );
 
-      /* ✅ FIXED */
+     
       localStorage.setItem("adminToken", res.data.token);
       navigate("/admin/dashboard"); // ✅ REDIRECT
     } catch (err) {
@@ -246,4 +250,141 @@ export default function AdminLogin() {
       </div>
     </div>
   );
-}cl
+}
+
+*/
+
+//connected with yashsviimport React, { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { loginAdmin } from "../utils/auth";
+
+// ✅ Inline styles object (UNCHANGED)
+const styles = {
+  page: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f9fafb",
+  },
+  card: {
+    padding: "40px",
+    borderRadius: "8px",
+    backgroundColor: "#ffffff",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    width: "400px",
+    textAlign: "center",
+  },
+  icon: {
+    fontSize: "40px",
+    marginBottom: "20px",
+  },
+  title: {
+    fontSize: "24px",
+    fontWeight: "600",
+    marginBottom: "8px",
+  },
+  subtitle: {
+    fontSize: "14px",
+    color: "#6b7280",
+    marginBottom: "24px",
+  },
+  field: {
+    marginBottom: "16px",
+    textAlign: "left",
+  },
+  label: {
+    display: "block",
+    marginBottom: "4px",
+    fontWeight: "500",
+    fontSize: "14px",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    borderRadius: "4px",
+    border: "1px solid #d1d5db",
+    fontSize: "14px",
+  },
+  button: {
+    width: "100%",
+    padding: "12px",
+    backgroundColor: "#2563eb",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "4px",
+    fontSize: "16px",
+    cursor: "pointer",
+  },
+};
+
+export default function AdminLogin() {
+  // 🔁 CHANGED: email → adminId
+  const [adminId, setAdminId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/admin/login",
+        {
+          adminId,
+          password,
+        }
+      );
+
+      // ✅ store access token
+      loginAdmin(res.data.accessToken);
+
+      navigate("/admin/dashboard");
+    } catch (err) {
+      alert(err.response?.data?.message || "Login failed");
+    }
+  };
+
+  return (
+    <div style={styles.page}>
+      <div style={styles.card}>
+        <div style={styles.icon}>⚙️</div>
+
+        <h2 style={styles.title}>Polymer Market Admin</h2>
+        <p style={styles.subtitle}>Sign in to your account</p>
+
+        <form onSubmit={handleLogin}>
+          <div style={styles.field}>
+            <label style={styles.label}>Admin ID</label>
+            <input
+              style={styles.input}
+              placeholder="admin123"
+              value={adminId}
+              onChange={(e) => setAdminId(e.target.value)}
+              required
+            />
+          </div>
+
+          <div style={styles.field}>
+            <label style={styles.label}>Password</label>
+            <input
+              style={styles.input}
+              type="password"
+              placeholder="********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" style={styles.button}>
+            Sign In
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}

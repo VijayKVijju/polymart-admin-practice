@@ -18,14 +18,38 @@ export default function AdminRoutes() {
   );
 }*/
 
-//==================second
+//==================second adimn poymart server connected
+/*
 import { Navigate, Outlet } from "react-router-dom";
+import DashboardLayout from "../components/layout/DashboardLayout"; // ✅ CORRECT PATH
+
+export default function AdminRoutes() {
+  const isAuthenticated = true; // replace with real auth later
+
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return (
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
+  );
+}
+  */
+ //yashsvi folder
+import { Navigate, Outlet } from "react-router-dom";
+import DashboardLayout from "../components/layout/DashboardLayout";
 import { isAdminLoggedIn } from "../utils/auth";
 
 export default function AdminRoutes() {
-  return isAdminLoggedIn() ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/admin/login" replace />
+  if (!isAdminLoggedIn()) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return (
+    <DashboardLayout>
+      <Outlet />
+    </DashboardLayout>
   );
-}
+} 
