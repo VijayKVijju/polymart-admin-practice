@@ -15,7 +15,7 @@ export default router;
 
 //------------------------------------updatiung
 import express from "express";
-import { loginAdmin, registerAdmin } from "../controllers/admin.controller.js";
+import { loginAdmin, registerAdmin,getPendingUsers,approveUser,rejectUser } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
@@ -33,4 +33,19 @@ router.post("/register", registerAdmin);
  */
 router.post("/login", loginAdmin);
 
+
+
+
+router.get("/pending-users",
+  // protects,
+  getPendingUsers,);
+
+router.put("/approve/:userId", 
+  // protects,
+   approveUser);
+  
+router.put("/reject/:userId", 
+    //protects, 
+    
+    rejectUser);
 export default router;

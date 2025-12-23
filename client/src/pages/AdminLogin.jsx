@@ -332,7 +332,7 @@ export default function AdminLogin() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/admin/login",
+        "http://localhost:5050/api/admin/login",
         {
           adminId,
           password,

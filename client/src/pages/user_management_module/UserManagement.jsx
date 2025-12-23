@@ -148,9 +148,7 @@ export default function UserManagement() {
       try {
         setLoading(true);
         setError("");
-
-        // backend route: /api/v1/admin/users
-        const res = await api.get("/admin/users");
+        const res = await api.get("http://localhost:5050/api/admin/pending-users");
 
         let backendUsers = [];
 
@@ -253,6 +251,7 @@ export default function UserManagement() {
           </p>
         ) : (
           filteredUsers.map((user) => (
+            
             <div
               key={user.id}
               onClick={() => navigate(`/admin/users/${user.id}`)}
