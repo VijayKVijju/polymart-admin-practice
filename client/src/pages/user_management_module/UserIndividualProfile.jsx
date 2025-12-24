@@ -169,9 +169,8 @@ export default function UserIndividualProfile() {
     const fetchUser = async () => {
       try {
         setLoading(true);
-
-        const res = await api.get(`http://localhost:5050/admin/users/${user.id}`);
-          console.log(res)
+        const res = await api.get(`http://localhost:5050/api/admin/users/${id}`);
+          console.log( "res",res)
         setUser(res.data.user);
       } catch (error) {
         console.error("Failed to fetch user:", error);
@@ -240,7 +239,7 @@ export default function UserIndividualProfile() {
           </span>
 
           {submitted && action === "approve" && (
-            <span className="text-xs px-3 py-1 rounded bg-green-100 text-green-600">
+            <span  className="text-xs px-3 py-1 rounded bg-green-100 text-green-600">
               Verified
             </span>
           )}

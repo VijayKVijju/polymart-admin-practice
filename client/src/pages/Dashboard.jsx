@@ -77,7 +77,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("adminToken");
 
       const res = await axios.get(
-        "http://localhost:3001/api/v1/admin/users",
+        "http://localhost:5050/api/v1/admin/users",
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -53,7 +53,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Admin Login */}
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/" element={<AdminLogin />} />
 
         {/* Protected Admin Routes */}
         <Route element={<AdminRoutes />}>
