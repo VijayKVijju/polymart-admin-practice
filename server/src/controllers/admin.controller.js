@@ -108,3 +108,98 @@ export const getPendingUsers = async (req, res) => {
     users,
   });
 };
+
+export const singleUser= async (req, res) => {
+  try {
+    const { id } = req.params;
+
+
+    console.log(id)
+    const user = await User.findOne({
+      _id: id,
+      status: "Pending",
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Pending user not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+export const updateUserStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, reason } = req.body;
+
+    // 1️⃣ Validate status
+    if (!status || !["Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Status must be Approved or Rejected",
+      });
+    }
+
+    // 2️⃣ Find user
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // 3️⃣ Prevent double update (optional but recommended)
+    if (user.status !== "Pending") {
+      return res.status(400).json({
+        success: false,
+        message: "User status already updated",
+      });
+    }
+
+    // 4️⃣ Update status
+    user.status = status;
+
+    if (status === "Rejected") {
+      user.rejectionReason = reason || "Not specified";
+    } else {
+      user.rejectionReason = null;
+    }
+
+    user.statusUpdatedAt = new Date();
+
+    await user.save();
+
+    // 5️⃣ Success response
+    return res.status(200).json({
+      success: true,
+      message: `User ${status} successfully`,
+      data: {
+        id: user._id,
+        status: user.status,
+      },
+    });
+
+  } catch (error) {
+    console.error("updateUserStatus error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

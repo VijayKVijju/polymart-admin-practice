@@ -15,7 +15,7 @@ export default router;
 
 //------------------------------------updatiung
 import express from "express";
-import { loginAdmin, registerAdmin,getPendingUsers,approveUser,rejectUser } from "../controllers/admin.controller.js";
+import { loginAdmin, registerAdmin,getPendingUsers,approveUser,rejectUser,singleUser,updateUserStatus} from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
@@ -40,6 +40,14 @@ router.get("/pending-users",
   // protects,
   getPendingUsers,);
 
+
+  router.get("/users/:id",
+  // protects,
+  singleUser,);
+
+
+  
+
 router.put("/approve/:userId", 
   // protects,
    approveUser);
@@ -48,4 +56,15 @@ router.put("/reject/:userId",
     //protects, 
     
     rejectUser);
+
+
+    router.patch(
+  "/admin/users/:id",
+  // protects,
+  updateUserStatus
+);
+
+
+
+
 export default router;

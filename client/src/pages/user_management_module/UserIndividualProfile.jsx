@@ -153,33 +153,42 @@ export default function UserIndividualProfile() {
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axios"; // ✅ use axios instance
 
 export default function UserIndividualProfile() {
   const { id } = useParams();
+
   const [user, setUser] = useState(null);
   const [action, setAction] = useState("");
   const [reason, setReason] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // 🔹 Fetch real user
+  // 🔹 Fetch single pending user
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(
-        `http://localhost:3000/admin/users/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-          },
-        }
-      );
-      setUser(res.data.data);
+      try {
+        setLoading(true);
+
+        const res = await api.get(`http://localhost:5050/admin/users/${user.id}`);
+          console.log(res)
+        setUser(res.data.user);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchUser();
   }, [id]);
 
   const handleSubmit = async () => {
+    if (!action) {
+      alert("Please select an action");
+      return;
+    }
+
     if (action === "reject" && reason.trim() === "") {
       alert("Please enter reason for rejection");
       return;
@@ -192,30 +201,33 @@ export default function UserIndividualProfile() {
 
     if (!window.confirm(msg)) return;
 
-    await axios.patch(
-      `http://localhost:3000/admin/users/${id}/status`,
-      {
+    try {
+      await api.patch(`http://localhost:5050/admin/users/${id}/`, {
         status: action === "approve" ? "Approved" : "Rejected",
         reason,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-        },
-      }
-    );
+      });
 
-    setSubmitted(true);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Failed to update status:", error);
+      alert("Failed to update user status");
+    }
   };
 
-  if (!user) return null;
+  if (loading) {
+    return <p className="text-center text-gray-400">Loading user...</p>;
+  }
+
+  if (!user) {
+    return <p className="text-center text-red-500">User not found</p>;
+  }
 
   return (
     <div className="flex gap-12">
       {/* LEFT PROFILE */}
       <div className="w-64 text-center">
         <img
-          src={user.profileImage}
+          src={user.profileImage || "https://i.pravatar.cc/200"}
           alt="User"
           className="w-40 h-40 rounded-full mx-auto object-cover"
         />
@@ -252,16 +264,20 @@ export default function UserIndividualProfile() {
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <span>GST Document</span>
-              <a
-                href={user.gstDocumentUrl}
-                target="_blank"
-                className="text-blue-500"
-              >
-                ⬇️
-              </a>
+              {user.gstDocumentUrl && (
+                <a
+                  href={user.gstDocumentUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500"
+                >
+                  ⬇️
+                </a>
+              )}
             </div>
+
             <div>
-              <strong>Location:</strong> {user.location}
+              <strong>Location:</strong> {user.location || "N/A"}
             </div>
           </div>
 
