@@ -251,8 +251,7 @@ export default function UserIndividualProfile() {
           )}
         </div>
       </div>
-
-      {/* RIGHT CARD */}
+      
       <div className="flex-1">
         <div className="bg-white rounded-xl shadow-md p-8 w-[520px] relative">
           <h2 className="font-semibold text-lg mb-1">{user.name}</h2>
