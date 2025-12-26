@@ -79,8 +79,6 @@
   // =========================
   // PROPER INDEXES
   // =========================
-  userSchema.index({ mobileNumber: 1 }, { unique: true });
-  userSchema.index({ name: 1 });
 
 
   userSchema.pre("save", async function () {

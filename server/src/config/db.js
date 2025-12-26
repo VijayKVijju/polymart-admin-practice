@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-  console.log("MongoDB connected");
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/polymart-admin-practice");
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  }
 };
 
 export default connectDB;

@@ -58,11 +58,13 @@ router.put("/reject/:userId",
     rejectUser);
 
 
-    router.patch(
-  "/admin/users/:id",
-  // protects,
-  updateUserStatus
-);
+//     router.patch(
+//   "/admin/users/:id",
+//   // protects,
+//   updateUserStatus
+// );
+
+
 
 
 

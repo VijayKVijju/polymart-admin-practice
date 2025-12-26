@@ -1,5 +1,5 @@
 import Admin from "../models/admin_model.js";
-import User from '../models/user_model.js'
+// import User from '../models/user_model.js'
 // ================= REGISTER =================
 export const registerAdmin = async (req, res) => {
   const { adminId, password } = req.body;
@@ -56,6 +56,9 @@ export const loginAdmin = async (req, res) => {
 export const approveUser = async (req, res) => {
   const { userId } = req.params;
 
+
+  console.log("ApprovedUser",userId);
+
   const updatedUser = await User.findByIdAndUpdate(
     userId,
     { status: "Approved" },
@@ -75,6 +78,9 @@ export const approveUser = async (req, res) => {
 export const rejectUser = async (req, res) => {
   const { userId } = req.params;
 
+  console.log("Rejected",userId);
+
+  
   const updatedUser = await User.findByIdAndUpdate(
     userId,
     { status: "Rejected" },
