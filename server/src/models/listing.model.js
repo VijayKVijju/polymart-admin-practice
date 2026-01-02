@@ -84,13 +84,11 @@
         },
         isAcknowledged: {
             type: Boolean,
-            required: [true, 'Acknowledgement of terms is required.'],
             default: false
         },
         status: {
             type: String,
             enum: ['active', 'Passive'],
-            required: true,
             default: 'active' 
         },
         // commission: { // Set by admin, calculated from pricePerKg
@@ -107,4 +105,10 @@
     });
 
 
-    export default mongoose.model('Listing', ListingSchema);
+  //  export default mongoose.model('Listing', ListingSchema);
+ export default mongoose.models.Listing || mongoose.model('Listing', ListingSchema);
+ 
+
+
+
+ 

@@ -37,6 +37,9 @@ function App() {
 
 export default App;
 */
+
+//=====================listing management working fine======================
+/*
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminRoutes from "./routes/AdminRoutes";
 
@@ -46,6 +49,42 @@ import UserManagement from "./pages/user_management_module/UserManagement";
 import UserIndividualProfile from "./pages/user_management_module/UserIndividualProfile";
 import ListingManagement from "./pages/ListingManagement";
 import InquiryManagement from "./pages/InquiryManagement";
+import ContactSupport from "./pages/ContactSupport";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Admin Login }
+        <Route path="/" element={<AdminLogin />} />
+
+        {/* Protected Admin Routes }
+        <Route element={<AdminRoutes />}>
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/users" element={<UserManagement />} />
+          <Route path="/admin/users/:id" element={<UserIndividualProfile />} />
+          <Route path="/admin/listings" element={<ListingManagement />} />
+          <Route path="/admin/inquiries" element={<InquiryManagement />} />
+          <Route path="/admin/support" element={<ContactSupport />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+*/
+
+//----------------inquiry management updated along with listing management-----------
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AdminRoutes from "./routes/AdminRoutes";
+
+import AdminLogin from "./pages/AdminLogin";
+import Dashboard from "./pages/Dashboard";
+import UserManagement from "./pages/user_management_module/UserManagement";
+import UserIndividualProfile from "./pages/user_management_module/UserIndividualProfile";
+import ListingManagement from "./pages/ListingManagement";
+import InquiryManagement from "./pages/Inquiry_Management_module/InquiryManagement";
 import ContactSupport from "./pages/ContactSupport";
 
 function App() {
